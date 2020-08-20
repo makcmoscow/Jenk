@@ -1,6 +1,6 @@
 def check_digit(variable):
   try:
-    int(variable):
+    int(variable)
     return True
   except Exception:
     return False
