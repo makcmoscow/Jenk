@@ -1,7 +1,8 @@
 def check_digit(variable):
-  if variable.isdigit():
+  try:
+    int(variable):
     return True
-  else:
+  except Exception:
     return False
 
 def test_check_digit():
