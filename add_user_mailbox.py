@@ -47,6 +47,24 @@ def create_password():
         password+=char
     return password
 
+def mail(args, list_of_logins, new_mailboxes):
+    addr_from = "testmprtv@mail.ru" # Адресат
+    addr_to = args.mail # Получатель
+    password = "565ts89%w()32" # Пароль
+    msg = MIMEMultipart() # Создаем сообщение
+    msg['From'] = addr_from # Адресат
+    msg['To'] = addr_to # Получатель
+    msg['Subject'] = 'Пароли для почтовых ящиков {}'.format(args.list_of_logins) # Тема сообщения
+    body = new_mailboxes
+    msg.attach(MIMEText(body, 'plain')) # Добавляем в сообщение текст
+    server = smtplib.SMTP('smtp.mail.ru', 587) # Создаем объект SMTP
+    #server.set_debuglevel(True) # Включаем режим отладки - если отчет не нужен, строку можно закомментировать
+    server.starttls() # Начинаем шифрованный обмен по TLS
+    server.login(addr_from, password) # Получаем доступ
+    server.send_message(msg) # Отправляем сообщение
+    server.quit() # Выходим
+
+
 if __name__ == '__main__':
 
     session = get_session(log_in_cred)
@@ -62,3 +80,4 @@ if __name__ == '__main__':
         token = get_token(session)
         create_mailbox(session=session, token=token, login=login, domain=domain, password=password)
         new_mailboxes += (login+'@'+domain + ' ' + password+ '\n')
+    mail(args, list_of_logins, new_mailboxes)
