@@ -3,6 +3,9 @@ import requests
 import argparse
 import random
 import time
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 parser = argparse.ArgumentParser()
 parser.add_argument('-d', '--domain', type = str, default = "m-production.tv", help = 'choose domain name')
 parser.add_argument('list_of_logins', type = str, help = 'Перечень имен в кавычках через запятую')
